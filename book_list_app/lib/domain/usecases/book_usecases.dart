@@ -5,14 +5,14 @@ import 'package:book_list_app/domain/errors/errors.dart';
 import 'package:book_list_app/domain/services/services.dart';
 import 'package:dartz/dartz.dart';
 
-class HomeUsecases {
+class BookUsecases {
   final BookService bookService;
 
-  HomeUsecases({
+  BookUsecases({
     required this.bookService,
   });
 
-  Future<Either<Failure, Home>> getHome() async {
+  Future<Either<Failure, Iterable<Book>>> getBooks() async {
     try {
       var books = await bookService.getBooks();
 
@@ -20,14 +20,12 @@ class HomeUsecases {
         return Left(InternalError(message: "Erro ao buscar livros."));
       }
 
-      return Right(
-        Home(books: books.toList()),
-      );
+      return Right(books);
     } catch (error, stack) {
       log(
         error.toString(),
         time: DateTime.now(),
-        name: 'HomeUsecases.getHome',
+        name: 'BookUsecases.getBooks',
         stackTrace: stack,
       );
       return Left(InternalError(message: error.toString()));

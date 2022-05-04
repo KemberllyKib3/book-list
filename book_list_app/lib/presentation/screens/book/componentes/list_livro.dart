@@ -47,6 +47,8 @@ class ListLivro extends StatelessWidget {
           ),
           subtitle: Text(
             book.subtitle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: BookListTS.font12.copyWith(color: Colors.white),
           ),
           trailing: const Icon(

@@ -1,6 +1,6 @@
 import 'package:book_list_app/app/book_list_theme.dart';
-import 'package:book_list_app/presentation/screens/home/bloc/home.dart';
-import 'package:book_list_app/presentation/screens/home/compontes/home_body.dart';
+import 'package:book_list_app/presentation/screens/book/bloc/book.dart';
+import 'package:book_list_app/presentation/screens/book/book_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,23 +15,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HomeBloc>(context).add(HomeInicializeEvent());
+    BlocProvider.of<BookBloc>(context).add(ConsultaBooksEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: ((context, state) {
+    return BlocBuilder<BookBloc, BookState>(
+      builder: (context, state) {
         if (state.isFalha) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: SizedBox(
-                child: Text("Algo deu errado."),
-              ),
-              duration: Duration(seconds: 5),
-              backgroundColor: BookListColors.hRed,
-            ),
-          );
+          throw state.error!;
         }
         if (state.isInicializando) {
           const CircularProgressIndicator(
@@ -41,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
 
-        return state.isSucesso ? HomeBody(home: state.home!) : Container();
-      }),
+        return state.isSucesso ? BookScreen(books: state.books!) : Container();
+      },
     );
   }
 }

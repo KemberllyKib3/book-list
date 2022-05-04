@@ -1,17 +1,17 @@
 import 'package:book_list_app/app/book_list_theme.dart';
-import 'package:book_list_app/presentation/screens/book_detail/book_detail_screen.dart';
-import 'package:book_list_app/presentation/screens/home/compontes/list_livro.dart';
-import 'package:book_list_app/presentation/screens/home/compontes/modal_widget.dart';
+import 'package:book_list_app/presentation/screens/book/book_detail_screen.dart';
+import 'package:book_list_app/presentation/screens/book/componentes/list_livro.dart';
+import 'package:book_list_app/presentation/screens/book/componentes/modal_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:book_list_app/domain/entities/entities.dart';
 
-class HomeBody extends StatelessWidget {
-  final Home home;
+class BookScreen extends StatelessWidget {
+  final List<Book> books;
 
-  const HomeBody({
+  const BookScreen({
     Key? key,
-    required this.home,
+    required this.books,
   }) : super(key: key);
 
   @override
@@ -85,24 +85,26 @@ class HomeBody extends StatelessWidget {
                         BookListTS.font16.copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 10),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: home.books
-                          .map(
-                            (Book book) => ListLivro(
-                              book: book,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        BookDetailScreen(book: book),
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                          .toList(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: books
+                            .map(
+                              (book) => ListLivro(
+                                book: book,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BookDetailScreen(book: book),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
                   ),
                 ],

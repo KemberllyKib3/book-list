@@ -1,7 +1,6 @@
 import 'package:book_list_app/app/book_list_theme.dart';
+import 'package:book_list_app/domain/entities/entities.dart';
 import 'package:flutter/material.dart';
-
-import 'package:book_list_app/domain/entities/book.dart';
 
 class BookDetailScreen extends StatelessWidget {
   final Book book;

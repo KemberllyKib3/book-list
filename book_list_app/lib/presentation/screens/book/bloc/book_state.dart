@@ -1,49 +1,49 @@
 import 'package:book_list_app/domain/entities/entities.dart';
 
-class HomeState {
+class BookState {
   final bool isInicializando;
   final bool isSucesso;
   final bool isFalha;
   final String? error;
-  final Home? home;
+  final List<Book>? books;
 
-  const HomeState({
+  const BookState({
     required this.isInicializando,
     required this.isSucesso,
     required this.isFalha,
     required this.error,
-    required this.home,
+    required this.books,
   });
 
-  factory HomeState.initial() {
-    return const HomeState(
+  factory BookState.initial() {
+    return const BookState(
       isInicializando: true,
       isSucesso: false,
       isFalha: false,
       error: null,
-      home: null,
+      books: null,
     );
   }
 
-  factory HomeState.failure(String error) {
-    return HomeState(
+  factory BookState.failure(String error) {
+    return BookState(
       isInicializando: false,
       isSucesso: false,
       isFalha: true,
       error: error,
-      home: null,
+      books: null,
     );
   }
 
-  factory HomeState.success({
-    required Home home,
+  factory BookState.success({
+    required List<Book> books,
   }) {
-    return HomeState(
+    return BookState(
       isInicializando: false,
       isSucesso: true,
       isFalha: false,
       error: null,
-      home: home,
+      books: books,
     );
   }
 
